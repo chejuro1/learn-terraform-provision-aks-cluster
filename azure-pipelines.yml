@@ -13,19 +13,19 @@ steps:
 - task: TerraformTool@0
   inputs:
     version: '1.2.4'
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'Azure subscription 1 (cf06eda7-48ad-45ca-a32d-9eec96042b9f)'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-     az login --service-principal -u $(APPID) -p $(PASSWORD) --tenant $(TENANT)
-     terraform init 
-     export TF_VAR_appId=$(APPID)
-     export TF_VAR_password=$(PASSWORD)
-     terraform plan -var 'appId=$(APPID' -var 'password=$(PASSWORD)'
+# - task: AzureCLI@2
+#   inputs:
+#     azureSubscription: 'Azure subscription 1 (cf06eda7-48ad-45ca-a32d-9eec96042b9f)'
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: |
+#      az login --service-principal -u $(APPID) -p $(PASSWORD) --tenant $(TENANT)
+     
 - script: |
-       
+        terraform init 
+        export TF_VAR_appId=$(APPID)
+        export TF_VAR_password=$(PASSWORD)
+        terraform plan -var 'appId=$(APPID)' -var 'password=$(PASSWORD)'
   displayName: 'Initialize terraform '
 
 - script: |
