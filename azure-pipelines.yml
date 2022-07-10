@@ -14,7 +14,7 @@ steps:
   inputs:
     version: '0.11.8'
 - script: |
-       terraform init
+       terraform version 
   displayName: 'Initialize terraform '
 
 - script: |
