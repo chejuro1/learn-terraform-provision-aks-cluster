@@ -15,7 +15,6 @@ steps:
     version: '0.11.8'
 - script: |
        terraform init
-       terraform plan 
   displayName: 'Initialize terraform '
 
 - script: |
