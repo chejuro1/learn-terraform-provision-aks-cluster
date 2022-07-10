@@ -15,6 +15,8 @@ steps:
     version: '1.2.4'
 - script: |
        terraform init 
+       export TF_VAR_appId=$(appId)
+       export TF_VAR_password=$(password)
        terraform plan 
   displayName: 'Initialize terraform '
 
