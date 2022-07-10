@@ -1,3 +1,3 @@
-appId    = '$(appId)'
-password = '$(password)'
+appId    = ""
+password = ""
 
