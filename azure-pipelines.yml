@@ -22,9 +22,9 @@ steps:
     
 - script: |
        terraform init 
-       export TF_VAR_appId=$(appId)
-       export TF_VAR_password=$(password)
-       terraform plan 
+       export TF_VAR_appId=$(APPID)
+       export TF_VAR_password=$(PASSWORD)
+       
   displayName: 'Initialize terraform '
 
 - script: |
