@@ -36,7 +36,7 @@ steps:
         # export ARM_CLIENT_ID=$(APPID)
         # export ARM_CLIENT_SECRET=$(PASSWORD)
         terraform plan -var 'appId=$(APPID)' -var 'password=$(PASSWORD)' 
-  displayName: 'terraform init and plan  '
+  displayName: 'terraform init and plan'
 
 - script: |
      export ARM_SUBSCRIPTION_ID=$(SUBSCRIPTION_ID)
