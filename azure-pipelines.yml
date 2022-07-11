@@ -23,18 +23,18 @@ steps:
      
 - script: |
         terraform init 
-        # export TF_VAR_appId=$(APPID)
-        # export TF_VAR_password=$(PASSWORD)
-        # export TF_VAR_subscription_id=$(SUBSCRIPTION_ID)
-        # export TF_VAR_tenant_id=$(TENANT_ID)
-        # export TF_VAR_client_secret=$(CLIENT_SECRET)
-        # export TF_VAR_client_id=$(CLIENT_ID)
+        export TF_VAR_appId=$(APPID)
+        export TF_VAR_password=$(PASSWORD)
+        export TF_VAR_subscription_id=$(SUBSCRIPTION_ID)
+        export TF_VAR_tenant_id=$(TENANT_ID)
+        export TF_VAR_client_secret=$(CLIENT_SECRET)
+        export TF_VAR_client_id=$(CLIENT_ID)
         
 
-        export ARM_SUBSCRIPTION_ID=$(SUBSCRIPTION_ID)
-        export ARM_TENANT_ID=$(TENANT_ID)
-        export ARM_CLIENT_ID=$(APPID)
-        export ARM_CLIENT_SECRET=$(PASSWORD)
+        # export ARM_SUBSCRIPTION_ID=$(SUBSCRIPTION_ID)
+        # export ARM_TENANT_ID=$(TENANT_ID)
+        # export ARM_CLIENT_ID=$(APPID)
+        # export ARM_CLIENT_SECRET=$(PASSWORD)
         terraform plan -var 'appId=$(APPID)' -var 'password=$(PASSWORD)' 
   displayName: 'Initialize terraform '
 
