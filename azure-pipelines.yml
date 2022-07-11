@@ -36,9 +36,16 @@ steps:
         # export ARM_CLIENT_ID=$(APPID)
         # export ARM_CLIENT_SECRET=$(PASSWORD)
         terraform plan -var 'appId=$(APPID)' -var 'password=$(PASSWORD)' 
-  displayName: 'Initialize terraform '
+  displayName: 'terraform init and plan  '
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    terraform apply --auto-approve 
+
+    
+  displayName: 'terraform apply'
+  
+- script: |
+     #terraform destroy --auto-approve 
+    
+    
+  displayName: 'terraform destroy'
