@@ -39,7 +39,7 @@ steps:
   displayName: 'terraform init and plan  '
 
 - script: |
-    terraform apply --auto-approve 
+    terraform apply -var 'appId=$(APPID)' -var 'password=$(PASSWORD)' --auto-approve 
 
     
   displayName: 'terraform apply'
