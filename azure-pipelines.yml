@@ -39,8 +39,13 @@ steps:
   displayName: 'terraform init and plan  '
 
 - script: |
-    terraform apply -var 'appId=$(APPID)' -var 'password=$(PASSWORD)' -var 'client_id=$(APPID)' -var 'client_secret==$(PASSWORD)' -var 'subscription_id==$(SUBSCRIPTION_ID)' -var 'tenant_id=$(TENANT_ID)' --auto-approve 
-
+     export ARM_SUBSCRIPTION_ID=$(SUBSCRIPTION_ID)
+     export ARM_TENANT_ID=$(TENANT_ID)    
+     export ARM_CLIENT_ID=$(APPID)
+     export ARM_CLIENT_SECRET=$(PASSWORD)
+     terraform apply -var 'appId=$(APPID)' -var 'password=$(PASSWORD)' -var 'client_id=$(APPID)' -var 'client_secret==$(PASSWORD)' -var 'subscription_id==$(SUBSCRIPTION_ID)' -var 'tenant_id=$(TENANT_ID)' --auto-approve 
+   
+     
     
   displayName: 'terraform apply'
   
