@@ -54,7 +54,7 @@ steps:
         export ARM_CLIENT_ID=$(APPID)
         export ARM_CLIENT_SECRET=$(PASSWORD)
         
-        terraform apply 
+        terraform apply --auto-approve
         #-var 'appId=$(APPID)' -var 'password=$(PASSWORD)' 
        
   displayName: 'terraform apply'
