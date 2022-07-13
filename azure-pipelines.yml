@@ -72,7 +72,7 @@ steps:
         export ARM_CLIENT_ID=$(APPID)
         export ARM_CLIENT_SECRET=$(PASSWORD)
         
-        terraform destroy  -target=azurerm_resource_group.default.name
+        terraform destroy  -target="azurerm_resource_group.default.name"
         #-var 'appId=$(APPID)' -var 'password=$(PASSWORD)' 
        
   displayName: 'terraform destroy'
