@@ -53,4 +53,4 @@ steps:
         
         terraform apply -var 'appId=$(APPID)' -var 'password=$(PASSWORD)' 
        
-  displayName: 'terraform init and plan'
+  displayName: 'terraform apply'
