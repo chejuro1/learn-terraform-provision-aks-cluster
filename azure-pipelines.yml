@@ -22,7 +22,7 @@ steps:
 #      az login --service-principal -u $(APPID) -p $(PASSWORD) --tenant $(TENANT)
      
 - script: |
-        terraform init 
+        terraform init -reconfigure
         # export TF_VAR_appId=$(APPID)
         # export TF_VAR_password=$(PASSWORD)
         # export TF_VAR_subscription_id=$(SUBSCRIPTION_ID)
@@ -35,7 +35,7 @@ steps:
         # export ARM_TENANT_ID=$(TENANT_ID)
         # export ARM_CLIENT_ID=$(APPID)
         # export ARM_CLIENT_SECRET=$(PASSWORD)
-        terraform plan -var 'appId=$(APPID)' -var 'password=$(PASSWORD)' 
+        # terraform plan -var 'appId=$(APPID)' -var 'password=$(PASSWORD)' 
   displayName: 'terraform init and plan'
 
 - script: |
