@@ -75,4 +75,4 @@ steps:
         terraform destroy  --auto-approve
         #-var 'appId=$(APPID)' -var 'password=$(PASSWORD)' 
        
-  displayName: 'terraform detroy'
+  displayName: 'terraform destroy'
