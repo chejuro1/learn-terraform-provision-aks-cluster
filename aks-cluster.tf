@@ -51,6 +51,6 @@ terraform {
     storage_account_name = "backendstoragec"
     container_name       = "backend"
     key                  = "terraform.tfstate"
-    access_key = var.access_key
+    access_key = "ldkKRivxYRsW5D+CW1YN/1QlBjrdu04SIIHJXFjBln9/zl8Zkx6AqaL9/FH61C4VGngFSRkw+ZS9+AStJTzcCA=="
   }
 }
