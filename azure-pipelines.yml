@@ -13,13 +13,13 @@ steps:
 - task: TerraformTool@0
   inputs:
     version: '1.2.4'
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'Azure subscription 1 (cf06eda7-48ad-45ca-a32d-9eec96042b9f)'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-     az login --service-principal -u $(APPID) -p $(PASSWORD) --tenant $(TENANT)
+# - task: AzureCLI@2
+#   inputs:
+#     azureSubscription: 'Azure subscription 1 (cf06eda7-48ad-45ca-a32d-9eec96042b9f)'
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: |
+#      az login --service-principal -u $(APPID) -p $(PASSWORD) --tenant $(TENANT)
      
 - script: |
         terraform init -reconfigure
