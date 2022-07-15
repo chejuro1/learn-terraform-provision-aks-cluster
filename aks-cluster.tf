@@ -41,8 +41,15 @@ resource "azurerm_kubernetes_cluster" "default" {
   }
 
   tags = {
-    environment = "Demo"
+    environment = "Dev"
   }
+}
+
+resource "azurerm_container_registry" "acr" {
+  name                = "containerRegistryc"
+  resource_group_name = azurerm_resource_group.acr.name
+  location            = azurerm_resource_group.acr.location
+  sku                 = "Premium"
 }
 
 terraform {
