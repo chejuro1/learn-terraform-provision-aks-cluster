@@ -51,7 +51,15 @@ resource "azurerm_container_registry" "acr" {
   location            = azurerm_resource_group.default.location
   sku                 = "Premium"
 }
+resource "azurerm_api_management" "apim" {
+  name                = "aks-apim"
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
+  publisher_name      = "chejuro"
+  publisher_email     = "julestl@yahoo.fr"
 
+  sku_name = "Developer_1"
+}
 terraform {
   backend "azurerm" {
     resource_group_name  = "StorageAccount"
