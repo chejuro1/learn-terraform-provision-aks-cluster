@@ -58,7 +58,7 @@ steps:
         # export ARM_CLIENT_SECRET=$(PASSWORD)
         
         terraform apply -auto-approve -lock=false
-        terraform state push -lock=false errored.tfstate | terraform state push -force errored.tfstate
+        terraform state push -lock=false errored.tfstate 
         #-var 'appId=$(APPID)' -var 'password=$(PASSWORD)' 
        
   displayName: 'terraform apply'
