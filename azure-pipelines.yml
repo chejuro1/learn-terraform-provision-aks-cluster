@@ -58,7 +58,8 @@ steps:
         # export ARM_CLIENT_SECRET=$(PASSWORD)
         
         terraform apply -auto-approve -lock=false
-        terraform force-unlock ea43aaab-18b7-3dc0-15e9-d5056a29feb1 -force 
+        terraform -force force-unlock ea43aaab-18b7-3dc0-15e9-d5056a29feb1 
+     
         terraform state push -force errored.tfstate 
         #-var 'appId=$(APPID)' -var 'password=$(PASSWORD)' 
        
