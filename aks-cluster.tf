@@ -58,8 +58,8 @@ resource "azurerm_container_registry" "acr" {
 #   publisher_name      = "chejuro"
 #   publisher_email     = "julestl@yahoo.fr"
 
-  sku_name = "Developer_1"
-}
+#   sku_name = "Developer_1"
+# }
 terraform {
   backend "azurerm" {
     resource_group_name  = "StorageAccount"
