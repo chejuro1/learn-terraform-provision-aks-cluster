@@ -43,24 +43,6 @@ steps:
        
   displayName: 'terraform init and plan'
 
-# - script: |
-       
-#         export TF_VAR_password=$(PASSWORD)
-#         export TF_VAR_subscription_id=$(SUBSCRIPTION_ID)
-#         export TF_VAR_tenant_id=$(TENANT_ID)
-#         export TF_VAR_client_id=$(APPID)
-#         export TF_VAR_appId=$(APPID)
-       
-        
-#         # export ARM_SUBSCRIPTION_ID=$(SUBSCRIPTION_ID)
-#         # export ARM_TENANT_ID=$(TENANT_ID)
-#         # export ARM_CLIENT_ID=$(APPID)
-#         # export ARM_CLIENT_SECRET=$(PASSWORD)
-        
-#         terraform apply --auto-approve
-#         #-var 'appId=$(APPID)' -var 'password=$(PASSWORD)' 
-       
-#   displayName: 'terraform apply'
 - script: |
        
         export TF_VAR_password=$(PASSWORD)
@@ -70,13 +52,31 @@ steps:
         export TF_VAR_appId=$(APPID)
        
         
-        export ARM_SUBSCRIPTION_ID=$(SUBSCRIPTION_ID)
-        export ARM_TENANT_ID=$(TENANT_ID)
-        export ARM_CLIENT_ID=$(APPID)
-        export ARM_CLIENT_SECRET=$(PASSWORD)
+        # export ARM_SUBSCRIPTION_ID=$(SUBSCRIPTION_ID)
+        # export ARM_TENANT_ID=$(TENANT_ID)
+        # export ARM_CLIENT_ID=$(APPID)
+        # export ARM_CLIENT_SECRET=$(PASSWORD)
         
-        
-        terraform destroy  --auto-approve  -lock=false
+        terraform apply --auto-approve
         #-var 'appId=$(APPID)' -var 'password=$(PASSWORD)' 
        
-  displayName: 'terraform destroy'
+  displayName: 'terraform apply'
+# - script: |
+       
+#         export TF_VAR_password=$(PASSWORD)
+#         export TF_VAR_subscription_id=$(SUBSCRIPTION_ID)
+#         export TF_VAR_tenant_id=$(TENANT_ID)
+#         export TF_VAR_client_id=$(APPID)
+#         export TF_VAR_appId=$(APPID)
+       
+        
+#         export ARM_SUBSCRIPTION_ID=$(SUBSCRIPTION_ID)
+#         export ARM_TENANT_ID=$(TENANT_ID)
+#         export ARM_CLIENT_ID=$(APPID)
+#         export ARM_CLIENT_SECRET=$(PASSWORD)
+        
+        
+#         terraform destroy  --auto-approve  -lock=false
+#         #-var 'appId=$(APPID)' -var 'password=$(PASSWORD)' 
+       
+#   displayName: 'terraform destroy'
