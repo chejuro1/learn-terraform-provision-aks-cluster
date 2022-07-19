@@ -1,0 +1,49 @@
+---
+parameters:
+  environment: "$(environment)"
+  template_directory: "$(template_directory)"
+  subscription_id: "$(subscriptionid)"
+  client_id: "$(clientid)"
+  client_secret: "$(clientsecret)"
+  tenant_id: "$(tenantid)"
+
+jobs:
+  - deployment: TerraformApply
+    pool: azure pipelines
+    continueOnError: false
+    environment: "${{ parameters.environment }}"
+    timeoutInMinutes: 240
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: DownloadPipelineArtifact@0
+              inputs:
+                source: "current"
+                artifactName: "drop"
+                path: "$(Pipeline.Workspace)/s"
+
+            - task: Bash@3
+              name: TerraformApply
+              displayName: "Apply Terraform Code"
+              inputs:
+                workingDirectory: "$(Pipeline.Workspace)/s"
+                targetType: "inline"
+                script: |
+                  cat <<EOF > auth.sh
+                  export ARM_SUBSCRIPTION_ID="${{ parameters.subscription_id }}"
+                  export ARM_CLIENT_ID="${{ parameters.client_id }}"
+                  export ARM_CLIENT_SECRET="${{ parameters.client_secret }}"
+                  export ARM_TENANT_ID="${{ parameters.tenant_id }}"
+                  EOF
+                  chmod 755 auth.sh
+                  pwd
+                  source auth.sh
+                  chmod 755 init.sh
+                  chmod 755 set_env.sh
+                  chmod 755 set_backend.sh
+                  # ./init.sh -e '${{ parameters.environment }}'
+                  ls -l
+                  terraform init
+                  terraform apply -auto-approve terraform-plan
+
