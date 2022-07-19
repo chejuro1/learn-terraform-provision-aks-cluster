@@ -2,7 +2,7 @@
 name: Dev - CICD
 
 trigger:
-  - dev
+  - dev 
 
 variables:
   - group: "DEV"
