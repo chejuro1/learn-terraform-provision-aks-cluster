@@ -1,1 +1,25 @@
 ---
+name: Dev - CICD
+
+trigger:
+  - dev
+
+variables:
+  - group: "DEV"
+  - name: environment
+    value: "DEV"
+  - name: template_directory
+    value: "terraform"
+
+stages:
+  - stage: Plan
+    displayName: "Terraform Plan"
+    jobs:
+      - template: /cicd/templates/plan.yml
+
+  - stage: Apply
+    dependsOn: Plan
+    condition: eq(dependencies.Plan.outputs['TerraformPlan.TerraformPlan.run_result'], '2')
+    displayName: "Terraform Apply"
+    jobs:
+      - template: /cicd/templates/apply.yml
