@@ -26,6 +26,33 @@ jobs:
             export ARM_TENANT_ID="${{ parameters.tenant_id }}"
             EOF
             terraform -v
+            chmod 755 auth.sh
+            pwd
+            run_result=0
+            source auth.sh
+            ./init.sh -e '${{ parameters.environment }}'
+            ls -l
+            terraform validate
+            terraform plan -out '$(Pipeline.Workspace)/s/terraform/terraform-plan' -detailed-exitcode
+            tfExitCode=$?
+
+            if [ $tfExitCode -eq 0 ]; then
+              echo "No changes, detected"
+              run_result=0
+            elif [ $tfExitCode -eq 2 ]; then
+              echo "Terraform detected changes"
+              run_result=2
+            else
+              echo "Terraform exit code: $tfExitCode"
+              run_result=$?
+            fi
+
+            rm auth.sh
+            rm -r .terraform
+
+            echo "Run Result: $run_result"
+            echo "##vso[task.setvariable variable=run_result;isOutput=true]$run_result"
+
 
       - task: PublishPipelineArtifact@1
         inputs:
