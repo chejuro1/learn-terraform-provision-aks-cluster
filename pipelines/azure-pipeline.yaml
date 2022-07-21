@@ -52,7 +52,8 @@ stages:
 
               # export TF_VAR_appId=$(APPID)
               # export TF_VAR_password=$(PASSWORD)
-              terraform plan -var-file="input/dev.tfvars.json" -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)"
+              #terraform plan -var-file="input/dev.tfvars.json" -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)"
+              terraform plan  -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)"
         displayName: 'build stage'
     
       - task: CopyFiles@2
@@ -96,6 +97,7 @@ stages:
                      terraform init -backend-config="storage_account_name=$(tfBackendStorageAccountName)" -backend-config="container_name=$(tfBackendStorageContainerName)" -backend-config="access_key=$(tfBackendSAAccessKey)" -backend-config="key=$(tfBackendFileName)-dev"
                
                      echo ##############~~~~~~~~~~~~~~~Terraform Plan~~~~~~~~~~~~~~###############
+                     #terraform plan -var-file=./input/dev.tfvars.json -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)" 
                      terraform plan -var-file=./input/dev.tfvars.json -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)" 
         
                     echo '#######Terraform Apply########'
