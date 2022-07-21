@@ -28,3 +28,77 @@ stages:
               echo "list all the files"
               ls 
         displayName: 'Setup Enviroment'
+
+- stage: Plan_Dev
+  dependsOn: [Setup]
+  jobs:
+    - job: Plan_Dev
+      steps:
+      - script: |
+              ls $(System.DefaultWorkingDirectory)
+              echo "=====================List all the files of main folder============================"
+              cd $(System.DefaultWorkingDirectory)/src/code
+              
+              echo "========================================== COPY File to dev environment ======================================"
+              
+              cp -v -r * $(System.DefaultWorkingDirectory)/src/dev 
+              cd $(System.DefaultWorkingDirectory)/src/dev
+              echo "list all the files"
+              ls 
+              az login --service-principal -u $(client_id) -p $(client_secret) --tenant $(tenant_id)
+              terraform init -backend-config="storage_account_name=$(tfBackendStorageAccountName)" -backend-config="container_name=$(tfBackendStorageContainerName)" -backend-config="access_key=$(tfBackendSAAccessKey)" -backend-config="key=$(tfBackendFileName)-dev"
+               
+               echo ##############~~~~~~~~~~~~~~~Terraform Plan~~~~~~~~~~~~~~###############
+
+              export TF_VAR_appId=$(APPID)
+              export TF_VAR_password=$(PASSWORD)
+              terraform plan -var-file="input/dev.tfvars.json" -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)"
+        displayName: 'build stage'
+    
+      - task: CopyFiles@2
+        inputs:
+            SourceFolder: 'src'
+            Contents: |
+                      **/*
+                      !dev/.terraform/**/*
+            TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        displayName: 'Copy Artifacts'
+
+      - publish: '$(Build.ArtifactStagingDirectory)'
+        artifact: dev_artifacts
+
+
+
+- stage: Apply_On_Dev
+  dependsOn: [Setup, Plan_Dev]
+  jobs:
+  - deployment: 
+    displayName: DEV
+    environment: DEV
+    strategy:
+     runOnce:
+        deploy:
+           steps:
+            
+            - download: current 
+              artifact: dev_artifacts
+
+            - script: |
+                    echo "Deploy to Move to directory"
+                      ls $(Pipeline.Workspace)/dev_artifacts/dev
+                      echo "=====================List all the files of main folder============================"
+                      cd $(Pipeline.Workspace)/dev_artifacts/dev
+                      
+                      #echo "========================================== COPY File to dev environment ======================================"
+                      
+                      #cp -v -r * $(Pipeline.Workspace)/src/dev 
+                     az login --service-principal -u $(client_id) -p $(client_secret) --tenant $(tenant_id)
+                     terraform init -backend-config="storage_account_name=$(tfBackendStorageAccountName)" -backend-config="container_name=$(tfBackendStorageContainerName)" -backend-config="access_key=$(tfBackendSAAccessKey)" -backend-config="key=$(tfBackendFileName)-dev"
+               
+                     echo ##############~~~~~~~~~~~~~~~Terraform Plan~~~~~~~~~~~~~~###############
+                     terraform plan -var-file=./input/dev.tfvars.json -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)" 
+        
+                    echo '#######Terraform Apply########'
+
+                    terraform apply out.plan
+              displayName: Apply
