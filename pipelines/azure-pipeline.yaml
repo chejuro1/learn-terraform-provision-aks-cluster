@@ -50,8 +50,8 @@ stages:
                
                echo ##############~~~~~~~~~~~~~~~Terraform Plan~~~~~~~~~~~~~~###############
 
-              export TF_VAR_appId=$(APPID)
-              export TF_VAR_password=$(PASSWORD)
+              # export TF_VAR_appId=$(APPID)
+              # export TF_VAR_password=$(PASSWORD)
               terraform plan -var-file="input/dev.tfvars.json" -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)"
         displayName: 'build stage'
     
@@ -73,7 +73,7 @@ stages:
   dependsOn: [Setup, Plan_Dev]
   jobs:
   - deployment: 
-    displayName: DEV
+    displayName: Apply DEV
     environment: DEV
     strategy:
      runOnce:
