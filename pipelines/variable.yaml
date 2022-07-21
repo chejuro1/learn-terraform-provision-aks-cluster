@@ -1,0 +1,9 @@
+variables:
+  tfBackendStorageAccountName	  : 'backendstoragec'
+  tfBackendStorageContainerName	: 'backend'
+  tfBackendFileName				      : 'terraform.tfstate'
+  tfBackendSAAccessKey			    : 'ldkKRivxYRsW5D+CW1YN/1QlBjrdu04SIIHJXFjBln9/zl8Zkx6AqaL9/FH61C4VGngFSRkw+ZS9+AStJTzcCA=='
+  subscription_id 				      : $(SUBSCRIPTION_ID)
+  client_id       				      : $(APPID)
+  client_secret   				      : $(PASSWORD)
+  tenant_id       				      : $(TENANT_ID)
