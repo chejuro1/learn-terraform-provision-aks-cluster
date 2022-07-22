@@ -45,13 +45,16 @@ stages:
               cd $(System.DefaultWorkingDirectory)/src/dev
               echo "list all the files"
               ls 
-              az login --service-principal -u $(client_id) -p $(client_secret) --tenant $(tenant_id)
+              # az login --service-principal -u $(client_id) -p $(client_secret) --tenant $(tenant_id)
               terraform init -backend-config="storage_account_name=$(tfBackendStorageAccountName)" -backend-config="container_name=$(tfBackendStorageContainerName)" -backend-config="access_key=$(tfBackendSAAccessKey)" -backend-config="key=$(tfBackendFileName)-dev"
                
                echo ##############~~~~~~~~~~~~~~~Terraform Plan~~~~~~~~~~~~~~###############
 
-              # export TF_VAR_appId=$(APPID)
-              # export TF_VAR_password=$(PASSWORD)
+              export TF_VAR_client_secret=$(client_secret)
+              export TF_VAR_subscription_id=$(subscription_id)
+              export TF_VAR_tenant_id=$(tenant_id)
+              export TF_VAR_client_id=$(client_id)
+              
               #terraform plan -var-file="input/dev.tfvars.json" -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)"
               terraform plan  -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)"
         displayName: 'build stage'
@@ -92,13 +95,16 @@ stages:
                       
                       #echo "========================================== COPY File to dev environment ======================================"
                       
-                      #cp -v -r * $(Pipeline.Workspace)/src/dev 
-                     az login --service-principal -u $(client_id) -p $(client_secret) --tenant $(tenant_id)
+                    #cp -v -r * $(Pipeline.Workspace)/src/dev 
+                    #az login --service-principal -u $(client_id) -p $(client_secret) --tenant $(tenant_id)
                      terraform init -backend-config="storage_account_name=$(tfBackendStorageAccountName)" -backend-config="container_name=$(tfBackendStorageContainerName)" -backend-config="access_key=$(tfBackendSAAccessKey)" -backend-config="key=$(tfBackendFileName)-dev"
                
                      echo ##############~~~~~~~~~~~~~~~Terraform Plan~~~~~~~~~~~~~~###############
-                     #terraform plan -var-file=./input/dev.tfvars.json -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)" 
-                     terraform plan -var-file=./input/dev.tfvars.json -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)" 
+                     export TF_VAR_client_secret=$(client_secret)
+                     export TF_VAR_subscription_id=$(subscription_id)
+                     export TF_VAR_tenant_id=$(tenant_id)
+                     export TF_VAR_client_id=$(client_id)
+                     terraform plan  -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)" 
         
                     echo '#######Terraform Apply########'
 
