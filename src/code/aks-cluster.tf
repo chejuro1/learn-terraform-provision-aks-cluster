@@ -60,12 +60,13 @@ resource "azurerm_container_registry" "acr" {
 
 #   sku_name = "Developer_1"
 # }
-terraform {
-  backend "azurerm" {
-    resource_group_name  = "StorageAccount"
-    storage_account_name = "backendstoragec"
-    container_name       = "backend"
-    key                  = "terraform.tfstate"
-    access_key = "ldkKRivxYRsW5D+CW1YN/1QlBjrdu04SIIHJXFjBln9/zl8Zkx6AqaL9/FH61C4VGngFSRkw+ZS9+AStJTzcCA=="
-  }
-}
+
+# terraform {
+#   backend "azurerm" {
+#     resource_group_name  = "StorageAccount"
+#     storage_account_name = "backendstoragec"
+#     container_name       = "backend"
+#     key                  = "terraform.tfstate"
+#     access_key = "ldkKRivxYRsW5D+CW1YN/1QlBjrdu04SIIHJXFjBln9/zl8Zkx6AqaL9/FH61C4VGngFSRkw+ZS9+AStJTzcCA=="
+#   }
+# }

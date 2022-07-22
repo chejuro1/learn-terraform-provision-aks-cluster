@@ -15,4 +15,11 @@ variable "tenant_id" {
 }
 
 
- 
+ variable "location" {
+   description = "Location of the resource group"
+ }
+
+variable "resourcegrp" {
+  default = "resourcegroup name"
+  
+}
