@@ -65,10 +65,10 @@ stages:
             Contents: |
                       **/*
                       !dev/.terraform/**/*
-            TargetFolder: '$(Build.ArtifactStagingDirectory)/dev'
+            TargetFolder: '$(Build.ArtifactStagingDirectory)'
         displayName: 'Copy Artifacts'
 
-      - publish: '$(Build.ArtifactStagingDirectory)/dev'
+      - publish: '$(Build.ArtifactStagingDirectory)'
         artifact: dev_artifacts
 
 
@@ -89,10 +89,10 @@ stages:
 
             - script: |
                     echo "Deploy to Move to directory"
-                      ls $(Pipeline.Workspace)
+                      ls -la $(Pipeline.Workspace)/dev_artifacts
                       echo "=====================List all the files of main folder============================"
-                      cd $(Pipeline.Workspace)
-                      
+                      cd $(Pipeline.Workspace)/dev_artifacts
+                      ls -la 
                       #echo "========================================== COPY File to dev environment ======================================"
                       
                     #cp -v -r * $(Pipeline.Workspace)/src/dev 
