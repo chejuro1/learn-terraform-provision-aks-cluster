@@ -89,9 +89,9 @@ stages:
 
             - script: |
                     echo "Deploy to Move to directory"
-                      ls $(Pipeline.Workspace)/dev
+                      ls $(Pipeline.Workspace)
                       echo "=====================List all the files of main folder============================"
-                      cd $(Pipeline.Workspace)/dev
+                      cd $(Pipeline.Workspace)
                       
                       #echo "========================================== COPY File to dev environment ======================================"
                       
