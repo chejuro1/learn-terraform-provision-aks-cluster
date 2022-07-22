@@ -89,10 +89,10 @@ stages:
 
             - script: |
                     echo "Deploy to Move to directory"
-                      ls -la $(Pipeline.Workspace)/dev_artifacts
+                      ls  $(Pipeline.Workspace)/dev_artifacts/dev
                       echo "=====================List all the files of main folder============================"
-                      cd $(Pipeline.Workspace)/dev_artifacts
-                      ls -la 
+                      cd $(Pipeline.Workspace)/dev_artifacts/dev
+                      ls 
                       #echo "========================================== COPY File to dev environment ======================================"
                       
                     #cp -v -r * $(Pipeline.Workspace)/src/dev 
