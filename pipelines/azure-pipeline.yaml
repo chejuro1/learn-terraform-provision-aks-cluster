@@ -100,10 +100,10 @@ stages:
                      terraform init -backend-config="storage_account_name=$(tfBackendStorageAccountName)" -backend-config="container_name=$(tfBackendStorageContainerName)" -backend-config="access_key=$(tfBackendSAAccessKey)" -backend-config="key=$(tfBackendFileName)-dev"
                
                     #  echo ##############~~~~~~~~~~~~~~~Terraform Plan~~~~~~~~~~~~~~###############
-                    #  export TF_VAR_client_secret=$(client_secret)
-                    #  export TF_VAR_subscription_id=$(subscription_id)
-                    #  export TF_VAR_tenant_id=$(tenant_id)
-                    #  export TF_VAR_client_id=$(client_id)
+                     export TF_VAR_client_secret=$(client_secret)
+                     export TF_VAR_subscription_id=$(subscription_id)
+                     export TF_VAR_tenant_id=$(tenant_id)
+                     export TF_VAR_client_id=$(client_id)
                      terraform plan  -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)" 
         
                     # echo '#######Terraform Apply########'

@@ -60,6 +60,7 @@ resource "azurerm_container_registry" "acr" {
 
 #   sku_name = "Developer_1"
 # }
+
 terraform {
   backend "azurerm" {
     resource_group_name  = "StorageAccount"
